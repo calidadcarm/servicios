@@ -9,7 +9,7 @@ CREATE TABLE `glpi_plugin_servicios_servicios` (
   `groups_id_tech` int(11) NOT NULL default '0' COMMENT 'RELATION to glpi_groups (id)',
   `suppliers_id` int(11) NOT NULL default '0' COMMENT 'RELATION to glpi_suppliers (id)',
   `locations_id` int(11) NOT NULL default '0' COMMENT 'RELATION to glpi_locations (id)',
-  `date_mod` datetime default NULL,
+  `date_mod` timestamp NULL DEFAULT NULL,
   `is_helpdesk_visible` int(11) NOT NULL default '1',
   `comment` text collate utf8_unicode_ci,
   `is_deleted` tinyint(1) NOT NULL default '0',

@@ -27,6 +27,37 @@
  --------------------------------------------------------------------------
  */
 
+	// [INICIO] [CRI] JMZ18G MIGRACIÓN GLPI 9.5.7 - 1 columnas utilizan el tipo de campo de fecha y hora en desuso. 
+	 
+	function servicios_notMigratedDatetime() {
+		global $DB;
+		
+		$result = $DB->request([
+			//	'COUNT'       => 'cpt',
+				'FROM'        => 'information_schema.columns',
+				'WHERE'       => [
+					 'information_schema.columns.table_schema' => $DB->dbdefault,
+					 'information_schema.columns.table_name'   => ['LIKE', 'glpi\_plugin\_servicios\_%'],
+					 'information_schema.columns.data_type'    => ['datetime']
+				]
+		]);
+	
+		while ($data = $result->next()) { 
+	
+			// Convert datetime to timestamp
+			$query = "ALTER TABLE `".$data["TABLE_NAME"]."` MODIFY `".$data["COLUMN_NAME"]."` TIMESTAMP DEFAULT CURRENT_TIMESTAMP;";
+		//	echo $query;
+			$DB->query($query);
+				
+		}
+	
+	}
+	
+	// [FINAL] [CRI] JMZ18G MIGRACIÓN GLPI 9.5.7 - 1 columnas utilizan el tipo de campo de fecha y hora en desuso.
+	
+
+
+
 function plugin_servicios_install() {
    global $DB;
 
@@ -42,6 +73,19 @@ function plugin_servicios_install() {
    PluginServiciosProfile::initProfile();
    PluginServiciosProfile::createFirstAccess($_SESSION['glpiactiveprofile']['id']);
    
+	// [INICIO] [CRI] JMZ18G MIGRACIÓN GLPI 9.5.7 - 1 columnas utilizan el tipo de campo de fecha y hora en desuso.
+	if ($DB->TableExists(getTableForItemType('PluginServiciosServicio'))){
+		
+		if ($DB->areTimezonesAvailable()) {
+			
+			servicios_notMigratedDatetime();
+
+	 	}
+
+	}
+	// [FINAL] [CRI] JMZ18G MIGRACIÓN GLPI 9.5.7 - 1 columnas utilizan el tipo de campo de fecha y hora en desuso.
+		
+
    return true;
 }
 
@@ -273,7 +317,7 @@ function plugin_servicios_giveItem($type, $ID, $data, $num) {
                   if ($result_linked=$DB->query($query)) {
                      if ($DB->numrows($result_linked)) {
                         $item = new $itemtype();
-                        while ($datal=$DB->fetch_assoc($result_linked)) {
+                        while ($datal=$DB->fetchAssoc($result_linked)) {
                            if ($item->getFromDB($datal['id'])) {
                               $out .= $item->getTypeName()." - ".$item->getLink()."<br>";
                            }

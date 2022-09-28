@@ -1,0 +1,11 @@
+
+#: inc/servicio.class.php:180 inc/servicio.class.php:368
+msgid "StateS"
+msgstr "Estado"
+
+#: inc/menu.class.php:35 inc/profile.class.php:164 inc/profile.class.php:164 setup.php:99 inc/servicio.class.php:45
+msgid "Servicio"
+msgid_plural "Servicios"
+msgstr[0] "Sistema de Información"
+msgstr[1] "Sistemas de Información"
+

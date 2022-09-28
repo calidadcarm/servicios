@@ -41,6 +41,7 @@ class PluginServiciosMenu extends CommonGLPI {
       $menu                                           = array();
       $menu['title']                                  = self::getMenuName();
       $menu['page']                                   = "/plugins/servicios/front/servicio.php";
+      $menu['icon']                                   = PluginServiciosServicio::getIcon();
       $menu['links']['search']                        = PluginServiciosServicio::getSearchURL(false);
       if (PluginServiciosServicio::canCreate()) {
          $menu['links']['add']                        = PluginServiciosServicio::getFormURL(false);

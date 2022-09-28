@@ -45,6 +45,10 @@ class PluginServiciosServicio extends CommonDBTM {
       return _n('Servicio', 'Servicios', $nb, 'servicios');
    }
 
+   static function getIcon() {
+      return "fas fa-fire";
+   }     
+
    //clean if servicios are deleted
    public function cleanDBonPurge() {
 
@@ -464,7 +468,7 @@ $tab[] = [
       echo "<td>".__('Name')."</td>";
       echo "<td>";
 	  if (Session::haveRight("plugin_servicios_general_fields", "1")) {
-		Html::autocompletionTextField($this,"name");
+      echo Html::input('name', ['value' => $this->fields['name']]);
 	  }  else   {
 		echo $this->fields['acronimosi'];
 	  }	  
@@ -612,7 +616,8 @@ $tab[] = [
       echo "<td>".__('Titulo')."</td>";
       echo "<td colspan='3'>";
 	  if (Session::haveRight("plugin_servicios_general_fields", "1")) {		  		
-		Html::autocompletionTextField($this, 'titulo', array('value' => $this->fields['titulo'], 'option' => 'style="height:25px; width:99%"'));
+	   //Html::autocompletionTextField($this, 'titulo', array('value' => $this->fields['titulo'], 'option' => 'style="height:25px; width:99%"'));
+      echo Html::input('titulo', ['value' => $this->fields['titulo'], 'size' => '124']);
 	  } else  {
 		echo $this->fields['titulo'];
 	  }		
@@ -631,7 +636,7 @@ $tab[] = [
       Html::textarea(['name'              => 'descripcion',
                       'value'             => $this->fields["descripcion"],
                       'enable_fileupload' => false,
-                      'enable_richtext'   => true,
+                      'enable_richtext'   => true,                      
                       'cols'              => 90,
                       'rows'              => 20]);	
 
@@ -865,7 +870,7 @@ $tab[] = [
 
       $values = array(0 => Dropdown::EMPTY_VALUE);
 
-      while ($data = $DB->fetch_assoc($result)) {
+      while ($data = $DB->fetchAssoc($result)) {
          $values[$data['id']] = $data['name'];
       }
       $rand = mt_rand();
