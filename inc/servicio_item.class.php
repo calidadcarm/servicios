@@ -137,7 +137,7 @@ $criteria = [
          if ($DB->numrows($result) != 1) {
             return false;
          }
-         $this->fields = $DB->fetch_assoc($result);
+         $this->fields = $DB->fetchAssoc($result);
          if (is_array($this->fields) && count($this->fields)) {
             return true;
          }
@@ -309,7 +309,7 @@ $criteria = [
             if ($result_linked = $DB->query($query)) {
                if ($DB->numrows($result_linked)) {
 
-                  while ($data = $DB->fetch_assoc($result_linked)) {
+                  while ($data = $DB->fetchAssoc($result_linked)) {
 
                      if ($itemtype == 'Ticket') {
                         $data["name"] = sprintf(__('%1$s: %2$s'), __('Ticket'), $data["id"]);
@@ -418,7 +418,7 @@ $criteria = [
       $web       = new PluginServiciosServicio();
       $used      = array();
       if ($numrows = $DB->numrows($result)) {
-         while ($data = $DB->fetch_assoc($result)) {
+         while ($data = $DB->fetchAssoc($result)) {
             $webs[$data['assocID']] = $data;
             $used[$data['id']] = $data['id'];
          }
@@ -619,7 +619,7 @@ $criteria = [
 
       $webs = array();
       if ($numrows = $DB->numrows($result)) {
-         while ($data = $DB->fetch_assoc($result)) {
+         while ($data = $DB->fetchAssoc($result)) {
             $webs[$data['assocID']] = $data;
          }
       }
@@ -753,7 +753,7 @@ $criteria = [
                if ($result_linked=$DB->query($query))
                   if ($DB->numrows($result_linked)) {
                      
-                     while ($data=$DB->fetch_assoc($result_linked)) {
+                     while ($data=$DB->fetchAssoc($result_linked)) {
                         if (!$items->getFromDB($data["id"])) {
                            continue;
                         }
@@ -844,7 +844,7 @@ $criteria = [
                                         __('Group in charge of the hardware'),
                                         PluginServiciosServicioType::getTypeName(1).'</i></b>');
          }
-         while ($data=$DB->fetch_array($result)) {
+         while ($data=$DB->fetchAssoc($result)) {
             $serviciosID = $data["id"];
 
             if (Session::isMultiEntitiesMode()) {

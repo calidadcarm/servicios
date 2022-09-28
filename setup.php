@@ -99,7 +99,7 @@ function plugin_init_servicios() {
 function plugin_version_servicios() {
 
    return array('name'          => _n('Servicio' , 'Servicios' ,2, 'servicios'),
-                'version'        => '2.1',
+                'version'        => '2.2',
                 'license'        => 'GPLv2+',
                 'oldname'        => 'servicio',
                 'author'  		=> '<a href="http://www.carm.es">CARM</a>',
